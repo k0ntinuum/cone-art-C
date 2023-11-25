@@ -37,6 +37,13 @@ void calc(i64 f[N][N], i64 k[N], i64 v) {
     load_f(f,v,k);
     for (int i = 1; i < N/2 + 1 ; i++) compute_next_row(f[i],f[i-1],k);
 }
+void insert_calc(i64 f[N][N], i64 k[N], i64 v) {
+    //for (int i = 0; i < N ; i++ ) f[0][i] = k[i];
+	k[N/2] = v;
+	load_f(f,v, k);
+   // load_f(f,v,k);
+    for (int i = 1; i < N/2 + 1 ; i++) compute_next_row(f[i],f[i-1],k);
+}
 
 i64 apex(i64 f[N][N]) {
     return f[N/2][center];

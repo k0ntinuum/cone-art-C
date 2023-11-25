@@ -25,28 +25,28 @@ void cursor_to(int r, int c) {
 }
 
 void print_symbol(i64 i) {
-    i64 rev = arc4random_uniform(181);
+    i64 rev = arc4random_uniform(100);
     
     
-    gray(arc4random_uniform(255));
+    //gray(arc4random_uniform(255));
+    rgb(0,arc4random_uniform(255),0 );
     //rgb(arc4random_uniform(255),arc4random_uniform(255),arc4random_uniform(255));
     //rgb(0,arc4random_uniform(155),0);
-    if (rev == 80) reverse_text();
+    if (rev == 0) reverse_text();
     switch (i) {
         case 0 : printf("O");break;
         case 1 : printf("|");break;
-        case 2 : printf(" ");break; //u2594
+        case 2 : printf("\u2594");break; //u2594
         case 3 : printf("3");break;
     }
-    if (rev == 80) stop_reverse_text();
+    if (rev == 0) stop_reverse_text();
 }
 void print_key(const i64 k[N][N]) {
-	for (i64 i = 0; i <= N/2 ; i++) {
-		for (i64 j = 0; j < N; j++) {
+	for (i64 i = 0; i <  N/2  ; i++) {
+		for (i64 j = i - 1 ; j <= N - 1 -  i   ; j++) {
             //if (j == center && (i == N/2 || i == 0) )  rgb(255,0,0);
-            if (j  <  i) printf("  ");
-            if (j  >=  N - i ) printf("  ");
-            if (i <= j && j < N - i) {print_symbol(k[i][j]); printf(" ");}
+            cursor_to(i,j);
+            print_symbol(k[i][j]);
             //if (j == center && (i == N/2 || i == 0) ) rgb(255,255,255);
         }
 		printf("\n");
@@ -55,35 +55,30 @@ void print_key(const i64 k[N][N]) {
 }
 void print_pyramid(const i64 k[N][N]) {
 	//for (i64 i = 0; i <= N/2 ; i++) {
-    for (int i = N/2; i > -1   ; i-- ) {
-		for (i64 j = 0; j < N; j++) {
-            cursor_to(15 - i, 5 + 2*j);
-            //if (j == center && (i == N/2 ) )  rgb(255,0,0);
-            //print_symbol(k[i][j]); printf(" ");
-            if (j  <  i) printf("  ");
-            if (j  >=  N - i ) printf("  ");
-            if (i <= j && j < N - i) {print_symbol(k[i][j]); printf(" ");}
-            //if (j == center && (i == N/2 ) ) rgb(255,255,255);
+    for (i64 i = 0; i <=  N/2  ; i++) {
+		for (i64 j = i; j < N  - i ; j++) {
+            cursor_to(15 - i, 7 + 2*j);
+            print_symbol(k[i][j]); 
         }
-		printf("\n");
+
 	}
-    printf("\n");
 }
+
 void print_pyramid_tight(const i64 k[N][N]) {
-	//for (i64 i = 0; i <= N/2 ; i++) {
-    for (int i = N/2; i > -1   ; i-- ) {
-		for (i64 j = 0; j < N; j++) {
-            cursor_to(15 - i, 5 + j);
-            //if (j == center && (i == N/2 ) )  rgb(255,0,0);
-            //print_symbol(k[i][j]); printf(" ");
-            if (j  <  i) printf(" ");
-            if (j  >=  N - i ) printf(" ");
-            if (i <= j && j < N - i) {print_symbol(k[i][j]); printf("");}
-            //if (j == center && (i == N/2 ) ) rgb(255,255,255);
-        }
-		printf("\n");
-	}
-    printf("\n");
+    u32 d = 600;
+    for (i64 i = 0; i <=  N/2  ; i++) {
+        for (int i = N/2; i > -1   ; i-- ) {
+		    for (i64 j = i; j < N  - i ; j++) {
+                cursor_to(15 - i, 5 + j);
+                print_symbol(k[i][j]);
+                printf("\n");
+                //usleep(arc4random_uniform(20) + 10);
+                
+            }
+            usleep(arc4random_uniform(d) + 100);
+
+	    }
+    }
 }
 
 void print_text(i64 t[T]) {

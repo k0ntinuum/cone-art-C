@@ -7,9 +7,10 @@ void key_demo() {
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     for (int i = 0; i < 10000 ; i++) {    
         calc(f,k,i%B);
-        print_pyramid(f);
-        //print_pyramid_tight(f);
-        usleep(100000);
+        //insert_calc(f,k,i%B);
+        //print_pyramid(f);
+        print_pyramid_tight(f);
+        //usleep(200);
         shift(k, N,  1);
     }
     show_cursor();
